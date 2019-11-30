@@ -1,0 +1,67 @@
+version: '2'
+
+services:
+
+  #PHP Service
+  kigspos_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: php:7.2-cli
+    container_name: kigspos_app
+    #restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: kigspos_app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./docker_conf/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - kigspos_app-network
+
+  #Nginx Service
+  kigspos_webserver:
+    image: nginx:alpine
+    container_name: kigspos_webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./docker_conf/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - kigspos_app-network
+
+  #MySQL Service
+  kigspos_db:
+    image: mysql:5.7.22
+    container_name: kigspos_db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: kigspos_db_admin
+      MYSQL_ROOT_PASSWORD: devroot1234
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql
+      #-./docker_conf/mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - kigspos_app-network
+
+#Docker Networks
+networks:
+  kigspos_app-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  dbdata:
+    driver: local
+
