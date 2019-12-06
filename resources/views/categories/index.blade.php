@@ -23,23 +23,25 @@
                     </div>
                     <div class="card-content collpase show">
                         <div class="card-body">
-                            <form class="form">
+                            @if (session()->has('message'))
+                                <div class="alert alert-success">
+                                    {{session()->get('message')}}
+                                </div>
+                                
+                            @endif
+                            <form class="form" action="{{route('categories.store')}}" method="POST" >
+                                @csrf
                                 <div class="form-body">
                                     <h4 class="form-section"><i class="fa fa-plus-circle"></i> Add Category</h4>
     
                                     <div class="form-group">
                                         <label for="userinput5" class="sr-only">Kategori</label>
-                                        <input class="form-control" placeholder="Kategori" id="userinput5" name="category">
+                                        <input class="form-control" placeholder="Kategori" id="userinput5" name="name" required>
                                     </div>
     
                                     <div class="form-group">
                                         <label for="userinput6" class="sr-only">Jenis Permata</label>
-                                        <input class="form-control" placeholder="Jenis Permata" id="userinput6" name="type">
-                                    </div>
-    
-                                    <div class="form-group">
-                                        <label for="userinput8" class="sr-only">Deskripsi</label>
-                                        <textarea id="userinput8" rows="5" class="form-control" name="description" placeholder="Deskripsi"></textarea>
+                                        <input class="form-control" placeholder="Jenis Permata" id="userinput6" name="type_gem" required>
                                     </div>
     
                                 </div>
@@ -48,6 +50,7 @@
                                     <button type="submit" class="btn btn-outline-primary">
                                         <i class="ft-check"></i> Submit
                                     </button>
+                                    {{ csrf_field() }}
                                 </div>
                             </form>
                         </div>
@@ -61,6 +64,11 @@
 	<div class="col-md-6">
 		<div class="card">
 			<div class="card-header">
+                @if (session()->has('success'))
+                    <div class="alert alert-danger">
+                        {{session()->get('success')}}
+                    </div>
+                @endif
 				<h4 class="card-title">List Kategori</h4>
 				<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
         		<div class="heading-elements">
@@ -78,29 +86,31 @@
 							<tr>
 								<th>#</th>
 								<th>Kategori</th>
-								<th>Deskripsi</th>
-								<th>Jenis Permata</th>
+                                <th>Jenis Permata</th>
+                                <th>Aksi</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>Mark</td>
-								<td>Otto</td>
-								<td>@mdo</td>
-							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>Jacob</td>
-								<td>Thornton</td>
-								<td>@fat</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>Larry</td>
-								<td>the Bird</td>
-								<td>@twitter</td>
-							</tr>
+                            @php $no = 1; @endphp
+                            @forelse ($categories as $category)
+                                <tr>
+                                    <th>{{$no++}}</th>
+                                    <td>{{$category->name}}</td>
+                                    <td>{{$category->type_gem}}</td>
+                                    <td>
+                                            <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                                </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center">Tidak ada Data</td>
+                                </tr>
+                            @endforelse
 						</tbody>
 					</table>
 				</div>		

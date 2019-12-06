@@ -28,3 +28,5 @@ Route::resource('/produk', 'InventoryController')->except([
 ]);
 
 Route::get('/transaksi', 'ReportingController@index');
+
+Route::put('/categories/{id}/edit', 'CategoryController@update');
