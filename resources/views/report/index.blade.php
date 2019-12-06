@@ -12,7 +12,6 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <button type="button" class="btn btn-info btn-min-width mr-1 mb-1"><i class="fa fa-plus-circle"></i> Tambah Produk</button>
                                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                                 <div class="heading-elements">
                                     <ul class="list-inline mb-0">
@@ -24,7 +23,7 @@
                             </div>
                             <div class="card-content collapse show">
                                 <div class="card-body card-dashboard">
-                                    <h3>Manajemen Produk</h3>
+                                    <h3>Laporan Transaksi</h3>
                                     <table class="table table-striped table-bordered multi-ordering">
                                         <thead>
                                             <tr>
@@ -35,6 +34,7 @@
                                                 <th>Berat</th>
                                                 <th>Kadar</th>
                                                 <th>Harga</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -43,6 +43,7 @@
                                                 <td>Nixon</td>
                                                 <td>System Architect</td>
                                                 <td>Edinburgh</td>
+                                                <td>$320,800</td>
                                                 <td>$320,800</td>
                                                 <td>$320,800</td>
                                                 <td>$320,800</td>
@@ -55,12 +56,14 @@
                                                 <td>$170,750</td>
                                                 <td>$170,750</td>
                                                 <td>$170,750</td>
+                                                <td>$170,750</td>
                                             </tr>
                                             <tr>
                                                 <td>Ashton</td>
                                                 <td>Cox</td>
                                                 <td>Junior Technical Author</td>
                                                 <td>San Francisco</td>
+                                                <td>$86,000</td>
                                                 <td>$86,000</td>
                                                 <td>$86,000</td>
                                                 <td>$86,000</td>
@@ -73,12 +76,14 @@
                                                 <td>$433,060</td>
                                                 <td>$433,060</td>
                                                 <td>$433,060</td>
+                                                <td>$433,060</td>
                                             </tr>
                                             <tr>
                                                 <td>Airi</td>
                                                 <td>Satou</td>
                                                 <td>Accountant</td>
                                                 <td>Tokyo</td>
+                                                <td>$162,700</td>
                                                 <td>$162,700</td>
                                                 <td>$162,700</td>
                                                 <td>$162,700</td>

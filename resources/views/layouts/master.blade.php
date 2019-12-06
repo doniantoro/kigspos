@@ -71,6 +71,7 @@
     <script src="../../../app-assets/js/scripts/tables/datatables/datatable-basic.js"></script>
     <script src="../../../app-assets/js/scripts/pages/dashboard-ecommerce.js"></script>
     <script src="../../../app-assets/js/scripts/ui/breadcrumbs-with-stats.js"></script>
+    <script src="../../../app-assets/js/scripts/charts/morris/smooth-area.js"></script>
     <!-- END PAGE LEVEL JS-->
 
     @include('layouts.module.footer')
