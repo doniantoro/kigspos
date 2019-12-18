@@ -14,7 +14,7 @@ class CreateGoodsStatusTable extends Migration
     public function up()
     {
         Schema::create('goods_status', function (Blueprint $table){
-            $table->tinyInteger('id')->primary();
+            $table->tinyIncrements('id');
             $table->string('status', 6);
         });
     }
