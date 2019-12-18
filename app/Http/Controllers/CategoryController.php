@@ -37,7 +37,7 @@ class CategoryController extends Controller
     }
 
     public function edit($id){
-        $categories = DB::table('goods_categories')->find($id);
+        $categories = DB::table('goods_category')->find($id);
         return view('categories.edit', compact('categories'));
     }
 

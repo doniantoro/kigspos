@@ -7,8 +7,6 @@
 
     
 */
-
-
 Route::prefix('pos')->group(function(){
     Route::get('/', 'POSController@getIndex');
     Route::post('/success', 'POSController@successfulTransactionPage');
@@ -28,5 +26,6 @@ Route::resource('/produk', 'InventoryController')->except([
 ]);
 
 Route::get('/transaksi', 'ReportingController@index');
+Route::get('/sales', 'ReportingController@sales');
 
 Route::put('/categories/{id}/edit', 'CategoryController@update');
