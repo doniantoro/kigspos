@@ -63,6 +63,9 @@
                         <li>
                             <a class="menu-item" href="{{url('transaksi')}}" data-i18n="nav.templates.vert.main">Transaction</a>
                         </li>
+                        <li>
+                            <a class="menu-item" href="{{url('sales')}}" data-i18n="nav.templates.vert.main">Sales</a>
+                        </li>
                 </ul>
             </li>
 

@@ -14,9 +14,9 @@ class CreateUserTable extends Migration
     public function up()
     {
         Schema::create('user', function (Blueprint $table){
-            $table->tinyInteger('id')->primary();
+            $table->tinyIncrements('id');
             $table->string('name', 64);
-            $table->tinyInteger('user_level_id');
+            $table->tinyInteger('user_level_id')->unsigned();
             $table->string('username', 64)->unique();
             $table->string('password', 64);
         });

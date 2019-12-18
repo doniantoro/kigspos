@@ -14,7 +14,7 @@ class CreateUserLevelTable extends Migration
     public function up()
     {
         Schema::create('user_level', function (Blueprint $table){
-            $table->tinyInteger('id')->primary();
+            $table->tinyIncrements('id');
             $table->string('name', 64);
         });
     }

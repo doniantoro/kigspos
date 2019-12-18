@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateGoodsSubcateogryTable extends Migration
 {
@@ -16,6 +17,8 @@ class CreateGoodsSubcateogryTable extends Migration
         Schema::create('goods_subcategory', function (Blueprint $table){
             $table->tinyIncrements('id');
             $table->string('name', 64);
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
     }
 
