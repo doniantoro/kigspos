@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Goods_category;
+use App\GoodsCategory;
 
 class CategoryController extends Controller
 {
     public function index(){
-        $categories = Goods_category::orderBy('created_at', 'desc')->get();
+        $categories = GoodsCategory::orderBy('created_at', 'desc')->get();
         return view('categories.index', compact('categories'));
     }
 
@@ -19,7 +19,7 @@ class CategoryController extends Controller
         ]);
 
         try {
-            $categories = new Goods_category();
+            $categories = new GoodsCategory();
             $categories->name = request('name');
             $categories->type_gem = request('type_gem');
             $categories->save();
@@ -31,13 +31,13 @@ class CategoryController extends Controller
     }
 
     public function destroy($id){
-        $categories = Goods_category::findOrFail($id);
+        $categories = GoodsCategory::findOrFail($id);
         $categories->delete();
         return redirect()->back()->with('success', 'kategory ' .$categories->name. ' berhasil dihapus');
     }
 
     public function edit($id){
-        $categories = DB::table('goods_categories')->find($id);
+        $categories = DB::table('goods_category')->find($id);
         return view('categories.edit', compact('categories'));
     }
 
@@ -48,7 +48,7 @@ class CategoryController extends Controller
         ]);
 
         try {
-            $categories = Goods_category::findOrFail($id);
+            $categories = GoodsCategory::findOrFail($id);
 
             $categories->update([
                 'name' => $request->name,
