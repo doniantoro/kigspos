@@ -23,6 +23,8 @@ Route::prefix('pos')->group(function(){
     
     Route::post('/test', 'POSController@test');
 
+    Route::get('/transaksi', 'ReportingController@index');
+
 
 });
 
