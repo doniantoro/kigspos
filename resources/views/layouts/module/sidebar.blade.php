@@ -32,11 +32,18 @@
             <li class=" nav-item"><a href="#"><i class="fa fa-folder-open"></i><span class="menu-title" data-i18n="nav.dash.main">Inventory Product</a>
                 <ul class="menu-content">
                         <li>
-                            <a class="menu-item" href="{{url('produk')}}" data-i18n="nav.templates.vert.main">Add Product</a>
+                            <a class="menu-item" href="{{url('produk/manual_input')}}" data-i18n="nav.templates.vert.main">Add Product</a>
                         </li>
                 
                         <li>
-                            <a class="menu-item" href="#" data-i18n="nav.templates.vert.main">Product Stock</a>
+                            <a class="menu-item" href="{{url('produk/')}}" data-i18n="nav.templates.vert.main">Product masuk</a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="{{url('produk/goods_stock')}}" data-i18n="nav.templates.vert.main">Product Stock</a>
+                        </li>
+
+                        <li>
+                            <a class="menu-item" href="{{url('produk/flow_barang?from=2019-11-20&to=2020-12-20')}}" data-i18n="nav.templates.vert.main">Product Flow</a>
                         </li>
                 </ul>
             </li>

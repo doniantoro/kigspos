@@ -13,6 +13,7 @@
                     <div class="card">
                         <div class="card-header">
                             <button type="button" class="btn btn-info btn-min-width mr-1 mb-1"><i class="fa fa-plus-circle"></i> Tambah Produk</button>
+                            <button type="button" class="btn btn-info btn-min-width mr-1 mb-1" data-toggle="modal" data-target="#importExcel">IMPORT EXCEL</button>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -28,6 +29,7 @@
                                 <table class="table table-striped table-bordered multi-ordering">
                                     <thead>
                                         <tr>
+                                        <th>No</th>
                                             <th>SKU</th>
                                             <th>Nama</th>
                                             <th>Kategori</th>
@@ -38,51 +40,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php $i=1;?>
+                                        @foreach($goods as $good)
                                         <tr>
-                                            <td>Tiger</td>
-                                            <td>Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett</td>
-                                            <td>Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>$170,750</td>
-                                            <td>$170,750</td>
-                                            <td>$170,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton</td>
-                                            <td>Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>$86,000</td>
-                                            <td>$86,000</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric</td>
-                                            <td>Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>$433,060</td>
-                                            <td>$433,060</td>
-                                            <td>$433,060</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Airi</td>
-                                            <td>Satou</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>$162,700</td>
-                                            <td>$162,700</td>
-                                            <td>$162,700</td>
-                                        </tr>
+                                        <th scope="row"><?php echo $i ?></th>                       
+                                        <td>{{$good->sku}}</td>
+                                            <td>{{$good->name}}</td>
+                                            <td>{{$good->category_name}}</td>
+                                            <td>{{$good->subcategory_name}}</td>
+                                            <td>{{$good->weight}}</td>
+                                            <td>{{$good->karat}}</td>
+                                            <td>{{$good->price}}</td> 
+                                         </tr>
+                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -94,5 +64,33 @@
         <!--/ Multi-column ordering table -->
         </div>
 
+
+     
+    <!-- Import Excel -->
+    <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<form method="post" action="/InventoryProduct/input_excell" enctype="multipart/form-data">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
+						</div>
+						<div class="modal-body">
+
+							{{ csrf_field() }}
+
+							<label>Pilih file excel</label>
+							<div class="form-group">
+								<input type="file" name="file" required="required">
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Import</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 </body>
 @endsection

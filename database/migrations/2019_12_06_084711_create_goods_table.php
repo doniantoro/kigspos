@@ -28,7 +28,7 @@ class CreateGoodsTable extends Migration
         Schema::table('goods', function (Blueprint $table){
             $table->foreign('category_id')->references('id')->on('goods_category');
             $table->foreign('subcategory_id')->references('id')->on('goods_subcategory');
-            $table->foreign('current_status')->references('id')->on('goods_flow');
+            $table->foreign('sku')->references('sku')->on('goods_flows');
             $table->foreign('supplier_id')->references('id')->on('supplier');
         });
     }
