@@ -4,6 +4,7 @@
 //Create the route with the feature name
 //Include the route here
 include('demo_routes/pos.php');
+include('demo_routes/category.php');
 
 /*
 |--------------------------------------------------------------------------
