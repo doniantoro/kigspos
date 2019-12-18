@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\good;
 use App\goods_flows;
+use App\Goods;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\goodImport;
@@ -23,7 +24,10 @@ class InventoryController extends Controller
 				->orderBy('goods.id', 'desc')
 				->get();
 
-        return view('products.index', ['goods' => $goods]);
+		$goods_new = Goods::with('goodscategory', 'goodssubcategory')->get();
+		
+		// return view('products.index', ['goods' => $goods]);
+		return json_encode($goods_new);
     }
 
 	public function manual_input()

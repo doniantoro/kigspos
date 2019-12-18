@@ -51,8 +51,8 @@
             {{-- End Of Inventory Product --}}
 
             {{-- Point Of Sales --}}
-            <li class="nav-item {{Request::is('pos') ? 'active' : ''}}">
-                <a class="menu-item" href="#" data-i18n="nav.templates.vert.main"><i class="fa fa-money"></i>Point Of Sales</a>
+            <li>
+                <a class="menu-item" href="/kigspos" data-i18n="nav.templates.vert.main"><i class="fa fa-money"></i>Point Of Sales</a>
             </li>
 
             {{-- Report Dashboard --}}
