@@ -45,7 +45,7 @@
 
             {{-- Point Of Sales --}}
             <li>
-                <a class="menu-item" href="#" data-i18n="nav.templates.vert.main"><i class="fa fa-money"></i>Point Of Sales</a>
+                <a class="menu-item" href="/point-of-sales" data-i18n="nav.templates.vert.main"><i class="fa fa-money"></i>Point Of Sales</a>
             </li>
 
             {{-- Report Dashboard --}}
