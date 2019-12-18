@@ -7,10 +7,6 @@
 
     
 */
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/report
 Route::prefix('pos')->group(function(){
     Route::get('/', 'POSController@getIndex');
     Route::post('/success', 'POSController@successfulTransactionPage');
@@ -20,7 +16,6 @@ Route::prefix('pos')->group(function(){
     Route::get('/product/search', 'POSController@searchProduct');
 
 
-<<<<<<< HEAD
     Route::post('/create-transaction', 'POSController@createTransacation');
     Route::post('/create-sales', 'POSController@createSales');
 
@@ -30,8 +25,4 @@ Route::prefix('pos')->group(function(){
 
 
 });
-=======
-Route::get('/transaksi', 'ReportingController@index');
-Route::get('/sales', 'ReportingController@sales');
->>>>>>> origin/report
 
