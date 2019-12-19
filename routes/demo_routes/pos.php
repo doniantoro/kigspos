@@ -8,7 +8,9 @@
     
 */
 Route::prefix('pos')->group(function(){
-    Route::get('/', 'POSController@getIndex');
+    Route::get('/', function(){
+        return view('pos.index');
+    });
     Route::post('/success', 'POSController@successfulTransactionPage');
 
 

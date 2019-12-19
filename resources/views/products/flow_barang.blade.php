@@ -52,13 +52,15 @@
                                         <tr>
                                             <th scope="row"><?php echo $i ?></th>
                                             <td>{{$good->sku}}</td>
-                                            <td>{{$good->name}}</td>
-                                            <td>{{$good->category_name}}</td>
-                                            <td>{{$good->subcategory_name}}</td>
-                                            <td>{{$good->weight}}</td>
-                                            <td>{{$good->karat}}</td>
-                                            <td>{{$good->price}}</td>
-                                            <td>{{$good->status}}</td>            
+                                            <td>{{$good->goods['name']}}</td>
+                                            <td>{{$good->goods['goodscategory']['name']}}</td>
+                                            <td>{{$good->goods['goodssubcategory']['name']}}</td>
+                                            <td>{{$good->goods['weight']}}</td>
+                                            <td>{{$good->goods['karat']}}</td>
+                                            <td>{{$good->goods['price']}}</td>
+                                            <td>{{$good->goods['goodsstatus']['status']}}</td>
+                                            
+                                                     
                                             </tr>
                                         <?php $i=$i+1;?>
                                         @endforeach 

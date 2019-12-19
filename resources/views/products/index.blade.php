@@ -46,8 +46,9 @@
                                         <th scope="row"><?php echo $i ?></th>                       
                                         <td>{{$good->sku}}</td>
                                             <td>{{$good->name}}</td>
-                                            <td>{{$good->category_name}}</td>
-                                            <td>{{$good->subcategory_name}}</td>
+                                            
+                                            <td>{{$good->goodscategory->name}}</td>
+                                            <td>{{$good->goodssubcategory->name}}</td>
                                             <td>{{$good->weight}}</td>
                                             <td>{{$good->karat}}</td>
                                             <td>{{$good->price}}</td> 

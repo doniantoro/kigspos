@@ -8,7 +8,8 @@ class Goods extends Model
 {
     protected $table = 'goods';
     protected $fillable = ['sku', 'name', 'weight', 'karat', 'price'];
-
+    public $timestamps ='false';
+    
     public function goodscategory(){
         return $this->belongsTo('App\GoodsCategory', 'category_id', 'id');
     }
@@ -18,7 +19,7 @@ class Goods extends Model
     }
 
     public function supplier(){
-        return $this->belongsTo('App\Supplier', 'supplier_id');
+        return $this->hasOne('App\Supplier', 'id', 'supplier_id');
     }
 
     public function goodsstatus(){
