@@ -42,22 +42,33 @@
                                     <td>
                                         <select name="category_id[]" required>
                                             <option value="">Kategory</option>
-                                            @foreach($goods as $good)
-                                                <option value="{{$good->goodscategory->id}}">{{$good->goodscategory->name}}</option>
+                                            @foreach($category as $categories)
+                                                <option value="{{$categories->id}}">{{$categories->name}}</option>
                                             @endforeach 
                                         </select>    
                                     </td>
                                     <td>
                                         <select name="subcategory_id[]" required>
-                                            <option value="">Sub kategory</option>
-                                            @foreach($goods as $good)
-                                                <option value="{{$good->goodssubcategory->id}}">{{$good->goodssubcategory->name}}</option>
-                                            @endforeach
-                                        </select>        
+                                            <option value="">sub</option>
+                                            @foreach($sub_category as $sub_categories)
+                                                <option value="{{$sub_categories->id}}">{{$sub_categories->name}}</option>
+                                            @endforeach 
+                                        </select>    
                                     </td>
+                                   
                                     <td ><input style="width:120px;" onkeypress="return hanyaAngka(event)" name="karat[]" placeholder="kadar"required></td>
                                     <td ><input style="width:120px;" onkeypress="return hanyaAngka(event)" name="weight[]" placeholder="berat"required></td>
                                     <td ><input style="width:120px;" onkeypress="return hanyaAngka(event)" name="price[]" placeholder="harga"required></td>
+                                
+                                    <td>
+                                    <select name="supplier[]" required>
+                                            <option value="">Supplier</option>
+                                            @foreach($supplier as $suppliers)
+                                            <option value="{{$suppliers->id}}">{{$suppliers->name}}</option>
+                                         
+                                            @endforeach 
+                                    </select>    
+                                     </td>
                                     <td><button type="button" onclick="add_form()" class="btn btn-success">Tambah Form</button></td>
                                 </tr>                                
                             </tbody>
@@ -69,6 +80,8 @@
                 </div>
             </div>
         </div>
+
+
 
         <!-- Function to add coloum input -->
         <script type="text/javascript">
@@ -88,17 +101,17 @@
             html += '<td ><input style="width:120px;"  name="sku[]" placeholder="sku" required></td>';
             html += '<td>';
             html += '<select name="category_id[]" required>';
-            html += ' <option value=""> kategory</option>';
-            html += '@foreach($goods as $good)';
-            html += '<option value="{{$good->goodscategory->id}}">{{$good->goodscategory->name}}</option>';
+            html += ' <option value=""> category</option>';
+            html += '@foreach($category as $categories)';
+            html += '<option value="{{$categories->id}}">{{$categories->name}}</option>';
             html += '@endforeach'; 
             html += '</select> ';
             html += '</td>';
             html += '<td>';
             html += '<select name="subcategory_id[]" required>';
             html += ' <option value="">Sub kategory</option>';
-            html += ' @foreach($goods as $good)';
-            html += ' <option value="{{$good->goodssubcategory->id}}">{{$good->goodssubcategory->name}}</option>';
+            html += ' @foreach($sub_category as $subcategories)';
+            html += ' <option value="{{$subcategories->id}}">{{$subcategories->name}}</option>';
             html += ' @endforeach';
             html += '</select> ';
             html += '</td>';
@@ -116,6 +129,10 @@
         }
     </script>
 
+    
+
+
+       
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

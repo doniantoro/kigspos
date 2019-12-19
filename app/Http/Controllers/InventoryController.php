@@ -25,16 +25,19 @@ class InventoryController extends Controller
 							->get();
 		
 		return view('products.index', ['goods' => $goods]);
-    }
+	}
 
 	public function manual_input()
 	{
-		$goods = Goods::with('goodscategory', 'goodssubcategory','supplier')
-							->orderby('goods.id','desc')
-							->get();
-		return view('products.manual_input',['goods' => $goods]);
+		$category = \App\GoodsCategory::get();
+		$sub_category=\App\GoodsSubcategory::get();
+		$supplier=\App\Supplier::get();
+		
+		//return json_encode($goods);
+		return view('products.manual_input',['category' => $category,'sub_category' => $sub_category,'supplier' => $supplier]);
     }
-    
+	
+	
 	public function manual_input_proses(Request $request)
 	{
 		$input = $request->all();
