@@ -46,19 +46,19 @@
                                             <th scope="row"><?php echo $i ?></th>
                                             <td>{{$good->sku}}</td>
                                             <td>{{$good->name}}</td>
-                                            <td>{{$good->category_name}}</td>
-                                            <td>{{$good->subcategory_name}}</td>
+                                            <td>{{$good->goodscategory->name}}</td>
+                                            <td>{{$good->goodssubcategory->name}}</td>
                                             <td>{{$good->weight}}</td>
-                                            <td>{{$good->karat}}</td>
-                                            <td>{{$good->price}}</td> 
+                                           <td>{{$good->karat}}</td>
+                                            <td>{{$good->price}}</td>  
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         konidisi
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                        <button class="dropdown-item" type="button"><a href="/produk/delete_stock/{{$good->sku}}"onclick="javascript: return confirm('Anda yakin hapus ?')">Hapus</a> </button>
-                                                        <button class="dropdown-item" type="button"><a href="/produk/return_stock/{{$good->sku}}"onclick="javascript: return confirm('Anda yakin Return ?')">Return</a></button>
+                                                        <button class="dropdown-item" type="button"><a href='javascript:returnData("{{$good->id}}")'>Hapus</a> </button>
+                                                        <button class="dropdown-item" type="button"><a href='javascript:hapusData("{{$good->id}}")' >Return</a></button>
                                                         <button class="dropdown-item" type="button"><a href="/produk/update_stock/{{$good->id}}">update</a> </button>
                                                     </div>
                                                 </div>
@@ -76,6 +76,16 @@
         </section>
         <!--/ Multi-column ordering table -->
         </div>
-
+        <script language="JavaScript" type="text/javascript">
+      function hapusData(id){
+        if (confirm("Apakah anda yakin akan menghapus data ini?")){
+          window.location.href = '/produk/delete_stock/' + id;
+        }
+        function returnData(id){
+        if (confirm("Apakah anda yakin akan return data ini?")){
+          window.location.href = '/produk/return_stock/' + id;
+        }
+      }
+    </script>
 </body>
 @endsection

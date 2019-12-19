@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\good;
 use App\goods_flows;
-use App\Goods;
+use App\GoodsFlow;
+use App\Goods;      
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\goodImport;
@@ -17,28 +18,21 @@ use App\Http\Controllers\Controller;
 class InventoryController extends Controller
 {
     public function index(){
-		$goods = DB::table('goods')
-				->join('goods_category', 'goods.category_id', '=', 'goods_category.id')
-				->join('goods_subcategory', 'goods.subcategory_id', '=', 'goods_subcategory.id')
-				->select('goods.*','goods_category.name','goods_subcategory.name')
-				->orderBy('goods.id', 'desc')
-				->get();
-
-		$goods_new = Goods::with('goodscategory', 'goodssubcategory')->get();
 		
-		// return view('products.index', ['goods' => $goods]);
-		return json_encode($goods_new);
+		$goods = Goods::with('goodscategory', 'goodssubcategory','supplier')
+							->orderby('goods.id','desc')
+							->where('current_status','1')
+							->get();
+		
+		return view('products.index', ['goods' => $goods]);
     }
 
 	public function manual_input()
 	{
-		$category = DB::table('goods_category')
-				->select('goods_category.*','goods_category.name')
-				->get();
-		$subcategory = DB::table('goods_subcategory')
-				->select('goods_subcategory.*','goods_subcategory.name')
-				->get();
-		return view('products.manual_input',['category' => $category],['subcategory' => $subcategory]);
+		$goods = Goods::with('goodscategory', 'goodssubcategory','supplier')
+							->orderby('goods.id','desc')
+							->get();
+		return view('products.manual_input',['goods' => $goods]);
     }
     
 	public function manual_input_proses(Request $request)
@@ -57,14 +51,17 @@ class InventoryController extends Controller
 			$products->current_status= 1;
 			$products->supplier_id= 1;
 			$products->save();  
-		
+
+
+			//return $products->id;
+
+			$last_id = $products->id;
+
+			$products= new GoodsFlow(); 
+			$products->status_id =1 ;
+			$products->goods_id = $last_id;
+			$products->save();  
 			
-			DB::table('goods_flow')->insert([
-			'status_id' => 1,
-			'sku' =>  $input['sku'][$i]
-			
-		]);
-		
 		 }
 		// alihkan halaman ke halaman input
 	    return redirect('/produk/manual_input');
@@ -72,20 +69,14 @@ class InventoryController extends Controller
 	}
 	public function flow_barang(Request $request)
 	{
-	$goods = DB::table('goods')
-			->join('goods_flow', 'goods.sku', '=', 'goods_flow.sku')
-			->join('goods_status', 'goods_status.id', '=', 'goods_flow.status_id')
-			->join('goods_category', 'goods.category_id', '=', 'goods_category.id')
-			->join('goods_subcategory', 'goods.subcategory_id', '=', 'goods_subcategory.id')
-			->select('goods.*','goods_category.name','goods_subcategory.name','goods_status.status')
-			->whereBetween('goods_flow.date', [$request->from, $request->to])    
-			->orderBy('id', 'desc')
-			->get();
-
+	$goods = goodsflow::with('goods', 'goods.goodscategory','goods.goodssubcategory','goods.goodsstatus')
+	->orderby('id','desc')
+	->whereBetween('created_at', [$request->from, $request->to])    
+	->get();
 	return view('/products/flow_barang',['goods' => $goods]);
- 
-}
-public function input_excell(Request $request) {
+ 	}
+
+	 public function input_excell(Request $request) {
 	// menangkap file excel
 	$file = $request->file('file');
  
@@ -105,46 +96,40 @@ public function input_excell(Request $request) {
 
 public function goods_stock()
 {
-	$goods = DB::table('goods')
-			->join('goods_flow', 'goods.sku', '=', 'goods_flow.sku')
-			->join('goods_category', 'goods.category_id', '=', 'goods_category.id')
-			->join('goods_subcategory', 'goods.subcategory_id', '=', 'goods_subcategory.id')
-			->select('goods.*','goods_category.name','goods_subcategory.name')
+			$goods = Goods::with('goodscategory', 'goodssubcategory','goodsflow')
+			->orderby('goods.id','desc')
 			->where('current_status','=','1')
-			->where('goods_flow.status_id','=','1')
+		//	->where('goods_flows.status_id','=','1')
 			->get();
 
-	return view('/products/goods_stock',['goods' => $goods]);	
+			return view('/products/goods_stock',['goods' => $goods]);	
 
 }
 
 
-public function update_stock($id,Request $request)
-{
-$goods = DB::table('goods')
-		->join('goods_flow', 'goods.sku', '=', 'goods_flow.sku')
-		->select('goods.*')
-		->where('goods.id','=',$request->sku)
-		->orderBy('id', 'desc')
-		->get();
-
+public function update_stock($id)
+{		
+	$goods=Goods::with('goodscategory', 'goodssubcategory')
+				->where('id','=',$id)
+				->get();
 return view('/products/update_goods_stock',['goods' => $goods]);
 }
 
 public function update_stock_proses($id,Request $request)
 {
-
-	// update data ke table barang
-	DB::table('goods')->where('id',$id)->update([
-		'sku' => $request->sku,
-		'name' => $request->name,
-		'category_id' => $request->category_id,
-		'subcategory_id' => $request->subcategory_id,
-		'weight' => $request->weight,
-		'karat' => $request->karat,
-		'price' => $request->price
-	]);
 	
+	// update data ke table barang
+	$goods=Goods::find($id);
+		$goods->sku = $request->sku ;
+		$goods->name = $request->name ;
+		$goods->category_id = $request->category_id ;
+		$goods->subcategory_id = $request->subcategory_id ;
+		$goods->weight = $request->weight ;
+		$goods->karat = $request->karat ;
+		$goods->price = $request->price ;
+		$goods->save();
+		
+
 	// alihkan halaman ke halaman depan
 	return redirect('/produk/goods_stock');
 
@@ -154,8 +139,9 @@ public function update_stock_proses($id,Request $request)
 public function delete_stock($id,Request $request)
 {
 
-DB::table('goods')->where('sku', $id)->delete();
-DB::table('goods_flow')->where('sku', $id)->delete();
+DB::table('goods')->where('id', $id)->delete();
+DB::table('goods_flow')->where('goods_id', $id)->delete();
+
 
 // alihkan halaman ke halaman depan
 return redirect('/produk/goods_stock');
@@ -165,13 +151,13 @@ public function return_stock($id,Request $request)
 {
 
 DB::table('goods_flow')->insert([
-	'status_id' => 2,
-	'sku' =>  $request->sku
-	]);
-
-	DB::table('goods')->where('sku',$id)->update([
-		'current_status'=>2
-	]);
+	'status_id' => 3,
+	'goods_id' => $id,
+	 ]);
+	 
+	$goods=Goods::find($id);
+		$goods->current_status = 2 ;
+		$goods->save();
 
 // alihkan halaman ke halaman depan
 return redirect('/produk/goods_stock');

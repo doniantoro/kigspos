@@ -46,19 +46,14 @@
                                     <td>
                                         <select name="category_id" required>
                                             <option value="">Kategory</option>
-                                            <option value="1">Gelang</option>
-                                            <option value="2">Kalung</option>
-                                            <option value="3">Cincin</option>
-                                            <option value="4">Audi</option>
+                                            
+                                            <option value="{{$good->goodscategory->id}}">{{$good->goodscategory->name}}</option>
                                         </select>    
                                     </td>
                                     <td>
                                         <select name="subcategory_id" required>
                                             <option value="">Sub kategory</option>
-                                            <option value="1">Emas</option>
-                                            <option value="2">Berlian</option>
-                                            <option value="3">Perak</option>
-                                            <option value="4">Perunggu</option>
+                                            <option value="{{$good->goodssubcategory->id}}">{{$good->goodssubcategory->name}}</option>
                                         </select>        
                                     </td>
                                     <td ><input style="width:120px;"  name="karat" value="{{$good->karat}}"required></td>

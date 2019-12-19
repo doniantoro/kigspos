@@ -42,16 +42,16 @@
                                     <td>
                                         <select name="category_id[]" required>
                                             <option value="">Kategory</option>
-                                            @foreach($category as $categories)
-                                                <option value="{{$categories->id}}">{{$categories->name}}</option>
+                                            @foreach($goods as $good)
+                                                <option value="{{$good->goodscategory->id}}">{{$good->goodscategory->name}}</option>
                                             @endforeach 
                                         </select>    
                                     </td>
                                     <td>
                                         <select name="subcategory_id[]" required>
                                             <option value="">Sub kategory</option>
-                                            @foreach($subcategory as $subcategories)
-                                                <option value="{{$subcategories->id}}">{{$subcategories->name}}</option>
+                                            @foreach($goods as $good)
+                                                <option value="{{$good->goodssubcategory->id}}">{{$good->goodssubcategory->name}}</option>
                                             @endforeach
                                         </select>        
                                     </td>
@@ -89,16 +89,16 @@
             html += '<td>';
             html += '<select name="category_id[]" required>';
             html += ' <option value=""> kategory</option>';
-            html += '@foreach($category as $categories)';
-            html += '<option value="{{$categories->id}}">{{$categories->name}}</option>';
+            html += '@foreach($goods as $good)';
+            html += '<option value="{{$good->goodscategory->id}}">{{$good->goodscategory->name}}</option>';
             html += '@endforeach'; 
             html += '</select> ';
             html += '</td>';
             html += '<td>';
             html += '<select name="subcategory_id[]" required>';
             html += ' <option value="">Sub kategory</option>';
-            html += ' @foreach($subcategory as $subcategories)';
-            html += ' <option value="{{$subcategories->id}}">{{$subcategories->name}}</option>';
+            html += ' @foreach($goods as $good)';
+            html += ' <option value="{{$good->goodssubcategory->id}}">{{$good->goodssubcategory->name}}</option>';
             html += ' @endforeach';
             html += '</select> ';
             html += '</td>';
