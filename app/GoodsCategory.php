@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GoodsCategory extends Model
 {
-    protected $fillable = ['name', 'type_gem'];
+    // protected $fillable = ['name'];
     protected $guarded = ['created_at'];
     protected $table = 'goods_category';
 

@@ -1,6 +1,5 @@
 <?php
 
-
 Route::resource('/categories', 'CategoryController')->except([
     'create', 'show'
 ]);
@@ -18,3 +17,10 @@ Route::get('/transaksi', 'ReportingController@index');
 Route::get('/sales', 'ReportingController@sales');
 
 Route::put('/categories/{id}/edit', 'CategoryController@update');
+
+
+Route::resource('/subCategories', 'SubCategoryController')->except([
+    'create', 'show'
+]);
+
+Route::put('/subCategories/{id}/edit', 'SubCategoryController@update');

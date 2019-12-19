@@ -19,7 +19,7 @@
                     </li>
                 
                     <li>
-                        <a class="menu-item" href="#" data-i18n="nav.templates.vert.main">Sub Category</a>
+                        <a class="menu-item" href="{{url('subCategories')}}" data-i18n="nav.templates.vert.main">Sub Category</a>
                     </li>
                 </ul>
             </li>

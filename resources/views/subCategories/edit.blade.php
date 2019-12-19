@@ -38,7 +38,7 @@
 
                                       <div class="form-group">
                                           <label for="userinput5" class="sr-only">Kategori</label>
-                                          <input class="form-control" placeholder="Kategori" id="userinput5" name="name" value="{{$categories->name}}">
+                                          <input class="form-control" placeholder="Kategori" id="userinput5" name="name" value="{{$subCategories->name}}">
                                       </div>
       
                                   </div>
