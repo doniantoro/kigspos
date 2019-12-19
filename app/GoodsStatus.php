@@ -12,4 +12,8 @@ class GoodsStatus extends Model
     public function goods(){
         return $this->hasMany('App\Goods');
     }
+    public function goods_flow(){
+        return $this->belongsTo('App\GoodsFlow');
+    }
+
 }

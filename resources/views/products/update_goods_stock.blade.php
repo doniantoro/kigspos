@@ -46,22 +46,38 @@
                                     <td>
                                         <select name="category_id" required>
                                             <option value="">Kategory</option>
-                                            
-                                            <option value="{{$good->goodscategory->id}}">{{$good->goodscategory->name}}</option>
-                                        </select>    
+                                            @foreach($category as $categories)
+                                            <option value="{{$categories->id}}">{{$categories->name}}</option>
+                                            @endforeach
+                                        
+                                         </select>    
                                     </td>
                                     <td>
                                         <select name="subcategory_id" required>
                                             <option value="">Sub kategory</option>
-                                            <option value="{{$good->goodssubcategory->id}}">{{$good->goodssubcategory->name}}</option>
+                                            @foreach($sub_category as $sub_categories)
+                                            <option value="{{$sub_categories->id}}">{{$sub_categories->name}}</option>
+                                            @endforeach
                                         </select>        
                                     </td>
                                     <td ><input style="width:120px;"  name="karat" value="{{$good->karat}}"required></td>
                                     <td ><input style="width:120px;"  name="weight" value="{{$good->weight}}"required></td>
                                     <td ><input style="width:120px;"  name="price" value="{{$good->price}}"required></td>
+                                    <td>
+                                    <select name="supplier[]" required>
+                                            <option value="">Supplier</option>
+                                          </select>    
+                                     </td>
+                                
+                                     @foreach($supplier as $suppliers)
+                                            <option value="{{$suppliers->id}}">{{$suppliers->name}}</option>
+                                         
+                                        @endforeach 
                                 </tr>   
                                 @endforeach                             
+                                    
                             </tbody>
+                            
                         </table>
                         <center>
                             <button type="submit" class="btn btn-primary mx-auto">submit</button>

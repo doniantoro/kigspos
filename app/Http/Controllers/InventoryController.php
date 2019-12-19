@@ -14,6 +14,8 @@ use App\Imports\goodImport;
 use App\Imports\goods_flowsImport;
 use App\Http\Controllers\Controller;
 
+use Maatwebsite\Excel\HeadingRowImport;
+
 
 class InventoryController extends Controller
 {
@@ -52,7 +54,7 @@ class InventoryController extends Controller
 			$products->karat = $input['karat'][$i];
 			$products->price= $input['price'][$i];
 			$products->current_status= 1;
-			$products->supplier_id= 1;
+			$products->supplier_id= $input['supplier'][$i];
 			$products->save();  
 
 
@@ -72,10 +74,12 @@ class InventoryController extends Controller
 	}
 	public function flow_barang(Request $request)
 	{
-	$goods = goodsflow::with('goods', 'goods.goodscategory','goods.goodssubcategory','goods.goodsstatus')
+	$goods = goodsflow::with('goods', 'goods.goodscategory','goods.goodssubcategory','goods_status')
 	->orderby('id','desc')
 	->whereBetween('created_at', [$request->from, $request->to])    
 	->get();
+
+	//return json_encode($goods);
 	return view('/products/flow_barang',['goods' => $goods]);
  	}
 
@@ -93,8 +97,14 @@ class InventoryController extends Controller
 	Excel::import(new goodImport, public_path('/file_import/'.$nama_file));
 	Excel::import(new goods_flowsImport, public_path('/file_import/'.$nama_file));
 
+// 		 $rows= Excel::load("storage\\app\\public\\upload\\$file", function($reader) {
+//            $reader->noHeading();
+//      })->get();
+//    $rows = $rows->toArray();
+
+   json_encode($rows);
 	// alihkan halaman kembali
-	return redirect('/produk/');
+	//return redirect('/produk/');
 }
 
 public function goods_stock()
@@ -115,7 +125,14 @@ public function update_stock($id)
 	$goods=Goods::with('goodscategory', 'goodssubcategory')
 				->where('id','=',$id)
 				->get();
-return view('/products/update_goods_stock',['goods' => $goods]);
+			 $category = \App\GoodsCategory::get();
+			 $sub_category=\App\GoodsSubcategory::get();
+
+	 $supplier=\App\Supplier::get();
+
+return view('/products/update_goods_stock',['goods' => $goods,'category' => $category,'sub_category' => $sub_category,'supplier'=>$supplier]);
+// return view('products.manual_input',['category' => $category,'sub_category' => $sub_category,'supplier' => $supplier]);
+
 }
 
 public function update_stock_proses($id,Request $request)
