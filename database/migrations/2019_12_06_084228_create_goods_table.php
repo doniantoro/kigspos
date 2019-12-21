@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateGoodsTable extends Migration
 {
@@ -24,6 +25,8 @@ class CreateGoodsTable extends Migration
             $table->bigInteger('price')->unsigned();
             $table->tinyInteger('current_status')->unsigned();
             $table->tinyInteger('supplier_id')->unsigned();
+            $table->timestamp('created_at')->useCurrent();;
+            $table->timestamp('updated_at')->useCurrent();;
         });
         Schema::table('goods', function (Blueprint $table){
             $table->foreign('category_id')->references('id')->on('goods_category');

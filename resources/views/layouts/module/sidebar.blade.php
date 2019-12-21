@@ -19,7 +19,7 @@
                     </li>
                 
                     <li>
-                        <a class="menu-item" href="#" data-i18n="nav.templates.vert.main">Sub Category</a>
+                        <a class="menu-item" href="{{url('subCategories')}}" data-i18n="nav.templates.vert.main">Sub Category</a>
                     </li>
                 </ul>
             </li>
@@ -52,7 +52,7 @@
 
             {{-- Point Of Sales --}}
             <li>
-                <a class="menu-item" href="/kigspos" data-i18n="nav.templates.vert.main"><i class="fa fa-money"></i>Point Of Sales</a>
+                <a class="menu-item" href="/pos" data-i18n="nav.templates.vert.main" style="color: pink; font-weight: bold"><i class="fa fa-money"></i>Point Of Sales</a>
             </li>
 
             {{-- Report Dashboard --}}

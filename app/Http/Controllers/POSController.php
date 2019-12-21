@@ -81,7 +81,7 @@ class POSController extends Controller
     function createTransacation(Request $req){
         $transaction = new Transaction();
         $transaction->price_total = $req->get('price_total');
-        $transaction->user_id = $req->get('user_id');
+        $transaction->user_id = 1; //Still hardcoded
         $transaction->customer_name = $req->get('customer_name');
         $transaction->save();
         return json_encode($transaction);

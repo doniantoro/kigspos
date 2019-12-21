@@ -41,11 +41,6 @@
                                           <input class="form-control" placeholder="Kategori" id="userinput5" name="name" value="{{$categories->name}}">
                                       </div>
       
-                                      <div class="form-group">
-                                          <label for="userinput6" class="sr-only">Jenis Permata</label>
-                                          <input class="form-control" placeholder="Jenis Permata" id="userinput6" name="type_gem" value="{{$categories->type_gem}}">
-                                      </div>
-      
                                   </div>
       
                                   <div class="form-actions right">
