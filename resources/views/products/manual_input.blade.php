@@ -16,6 +16,7 @@
         <div class="container pt-4">
             <div class="row pt-4" style="height:100%;">
                 <div class="kotak w-100 h-100 bg-light rounded p-4 mt-4 mx-auto"  >   
+                    <!-- Table input data dinamis -->
                     <form action="/produk/manual_input_proses" method="get">
                         <center>
                         <h1 style="color:black;" >INPUT DATA</h1>
@@ -42,6 +43,7 @@
                                     <td>
                                         <select name="category_id[]" required>
                                             <option value="">Kategory</option>
+                                            <!-- Looping category -->
                                             @foreach($category as $categories)
                                                 <option value="{{$categories->id}}">{{$categories->name}}</option>
                                             @endforeach 
@@ -50,6 +52,7 @@
                                     <td>
                                         <select name="subcategory_id[]" required>
                                             <option value="">sub</option>
+                                             <!-- Looping subcategory -->
                                             @foreach($sub_category as $sub_categories)
                                                 <option value="{{$sub_categories->id}}">{{$sub_categories->name}}</option>
                                             @endforeach 
@@ -63,6 +66,7 @@
                                     <td>
                                     <select name="supplier[]" required>
                                             <option value="">Supplier</option>
+                                             <!-- Looping supplier -->
                                             @foreach($supplier as $suppliers)
                                             <option value="{{$suppliers->id}}">{{$suppliers->name}}</option>
                                          
@@ -85,12 +89,16 @@
 
         <!-- Function to add coloum input -->
         <script type="text/javascript">
-        function hanyaAngka(evt) {
+        //function to only type angka
+        function hanyaAngka(evt) 
+        {
             var charCode = (evt.which) ? evt.which : event.keyCode
             if (charCode > 31 && (charCode < 48 || charCode > 57))
                  return false;
                   return true;
-                }
+        }
+
+        //function to add form
         function add_form()
         {
             var html = '';
@@ -118,11 +126,18 @@
             html += '<td ><input style="width:120px;" onkeypress="return hanyaAngka(event)" name="karat[]" placeholder="kadar"required></td>';
             html += '<td ><input style="width:120px;" onkeypress="return hanyaAngka(event)" name="weight[]" placeholder="berat"required></td>';
             html += '<td ><input style="width:120px;" onkeypress="return hanyaAngka(event)" name="price[]" placeholder="harga"required></td>';
+            html += '<select name="supplier[]" required>';
+            html += '<option value="">Supplier</option>';
+            html += '@foreach($supplier as $suppliers)';
+            html += '<option value="{{$suppliers->id}}">{{$suppliers->name}}</option>';
+            html += '@endforeach ';
+            html += '                        </select>  ';
             html += '<td><button type="button" class="btn btn-danger" onclick="del_form(this)">Hapus</button></td>';
             html += '</tr>';
             $('#form-body').append(html);
         }
  
+        //function to delete form
         function del_form(id)
         {
             id.closest('tr').remove();

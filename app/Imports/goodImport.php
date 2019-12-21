@@ -2,10 +2,12 @@
 
 namespace App\Imports;
 
-use App\good;
+use App\Goods;
+use App\GoodsFlow;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class goodImport implements ToModel
+class goodImport implements ToModel,WithHeadingRow
 {
     /**
     * @param array $row
@@ -14,17 +16,26 @@ class goodImport implements ToModel
     */
     public function model(array $row)
     {
-        return new good([
-            //
-            'sku' => $row[1],
-            'name' => $row[2], 
-            'category_id' => $row[3],
-            'subcategory_id' => $row[4],
-            'weight' => $row[5], 
-            'karat' => $row[6],
-            'price' => $row[7],
-            'current_status' => $row[8], 
-            'supplier_id' => $row[9], 
-        ]);
+         //Input to Goods
+         $products=new Goods;   
+         $products->sku = $row['sku'];
+         $products->name = $row['name'];
+         $products->category_id = $row['category_id'];
+         $products->subcategory_id = $row['subcategory_id'];
+         $products->weight = $row['weight'];
+         $products->karat = $row['karat'];
+         $products->price = $row['price'];
+         $products->current_status =1;
+         $products->supplier_id = $row['supplier_id'];
+         $products->save();  
+         
+        //Input to GoodsFlow
+         $last_id = $products->id;
+         $products= new GoodsFlow(); 
+			$products->status_id =1 ;
+			$products->goods_id = $last_id;
+            $products->save();
+              
+         return ($products);
     }
 }

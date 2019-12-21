@@ -27,4 +27,3 @@ Route::prefix('pos')->group(function(){
 
 
 });
-
