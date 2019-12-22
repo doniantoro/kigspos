@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class GoodsSubcategory extends Model
 {
     protected $table = 'goods_subcategory';
-    protected $guarded = ['created_at'];
+    //protected $fillable = 'name';
+    public function goods(){
+        return $this->hasMany('App\Goods');
+    }
 }

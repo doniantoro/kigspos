@@ -16,7 +16,7 @@ class goods_flowsImport implements ToModel
     {
         return new goods_flows([
             'status_id' => 1, 
-            'sku' => $row[1],
+            'goods_id' => 5
             
         ]);
     }

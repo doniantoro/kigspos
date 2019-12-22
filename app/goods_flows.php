@@ -8,4 +8,8 @@ class goods_flows extends Model
 {
     protected $fillable = ['status_id','sku','date'];
     protected $table = 'goods_flow';
+
+    public function goods(){
+        return $this->belongsTo('App\Goods');
+    }
 }
