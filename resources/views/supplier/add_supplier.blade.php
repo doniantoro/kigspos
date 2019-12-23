@@ -26,6 +26,7 @@
                                 <center><h3>Tambah Supplier</h3></center></br></br>
                                 <!-- Form input -->
                                 <form action="/supplier/add_procces" method="get">
+                                {{ csrf_field() }}
                                     <div class="container px-4 ">
                                         <div class="input-group mb-2">
                                             <span class="input-group-text" id="inputGroup-sizing-default">Nama</span>

@@ -9,13 +9,27 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class goodImport implements ToModel,WithHeadingRow
 {
+    
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
-    {
+    public function model(array $row )
+    { 
+        
+        // $sku= Goods::get()   ;
+        // $same=true;
+        // foreach($sku as $sku2)
+        // {
+        //     if($sku2->sku== $row['sku'])//kondision if sku avaible on db with user input,		
+        //     {
+        //         $same=false;
+        //     }
+        // }
+
+        // if ($same==true)//kondision if sku is not avaible
+		// 	{
          //Input to Goods
          $products=new Goods;   
          $products->sku = $row['sku'];

@@ -12,7 +12,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <button type="button" class="btn btn-info btn-min-width mr-1 mb-1"><i class="fa fa-plus-circle"></i> Tambah Produk</button>
+                            <a href="/produk/manual_input">
+                            <button type="button" class="btn btn-info btn-min-width mr-1 mb-1"><i class="fa fa-plus-circle"></i> Tambah Produk</button></a>
                             <button type="button" class="btn btn-info btn-min-width mr-1 mb-1" data-toggle="modal" data-target="#importExcel">IMPORT EXCEL</button>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
