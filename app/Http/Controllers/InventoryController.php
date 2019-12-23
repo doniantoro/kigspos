@@ -65,37 +65,53 @@ class InventoryController extends Controller
 	public function manual_input_proses(Request $request)
 	{
 		$input = $request->all();//request all of data input
-
+		$sku= Goods::get();
+		$succes="";
+		$int=1;
 		//get how many data and looping
 		for ($i=0; $i < count($input['sku']); ++$i) 
 		{
-			//Input produk to db goods
-			$products= new Goods;        
-			$products->sku = $input['sku'][$i];
-			$products->name= $input['name'][$i];
-			$products->category_id= $input['category_id'][$i];
-			$products->subcategory_id = $input['subcategory_id'][$i];
-			$products->weight= $input['weight'][$i];
-			$products->karat = $input['karat'][$i];
-			$products->price= $input['price'][$i];
-			$products->current_status= 1;
-			$products->supplier_id= $input['supplier'][$i];
-			$products->save();  
+			$same=true;
+			foreach($sku as $sku2)
+			{
+				if($sku2->sku==$input['sku'][$i])//kondision if sku avaible on db with user input,		
+				{
+					$same=false;
+					$succes = array($input['sku'][$i]);
+					 
+					//$count = count($succes2);
+					$int++;
+				}
+			}
+			if ($same==true)//kondision if sku is not avaible
+			{
+					//Input produk to db goods
+					$products= new Goods;        
+					$products->sku = $input['sku'][$i];
+					$products->name= $input['name'][$i];
+					$products->category_id= $input['category_id'][$i];
+					$products->subcategory_id = $input['subcategory_id'][$i];
+					$products->weight= $input['weight'][$i];
+					$products->karat = $input['karat'][$i];
+					$products->price= $input['price'][$i];
+					$products->current_status= 1;
+					$products->supplier_id= $input['supplier'][$i];
+					$products->save();  
 
+					$last_id = $products->id;//get last id of goods flow
 
-
-			$last_id = $products->id;//get last id of goods flow
-
-			//input procces to db goods flow
-			$GoodsFlow= new GoodsFlow(); 
-			$GoodsFlow->status_id =1 ;
-			$GoodsFlow->goods_id = $last_id;
-			$GoodsFlow->save();  
+					//input procces to db goods flow
+					$GoodsFlow= new GoodsFlow(); 
+					$GoodsFlow->status_id =1 ;
+					$GoodsFlow->goods_id = $last_id;
+					$GoodsFlow->save();  
+					$succes="Barang berhasil di input";
 			
+			}
 		 }
 		// alihkan halaman ke halaman input
-	    return redirect('/produk/manual_input');
-		 
+	    return redirect('/produk/manual_input')->with(['success' => $succes]);
+		// return json_encode($succes2);
 	}
 
 
@@ -240,7 +256,7 @@ class InventoryController extends Controller
 	public function return_stock($id,Request $request)
 	{
 
-		DB::table('GoodsFlow')->insert
+		DB::table('goods_flow')->insert
 			([
 				'status_id' => 3,
 				'goods_id' => $id,
