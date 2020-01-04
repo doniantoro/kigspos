@@ -13,10 +13,8 @@ Route::prefix('pos')->group(function(){
     });
     Route::post('/success', 'POSController@successfulTransactionPage');
 
-
     Route::get('/product', 'POSController@getProducts');
     Route::get('/product/search', 'POSController@searchProduct');
-
 
     Route::post('/create-transaction', 'POSController@createTransacation');
     Route::post('/create-sales', 'POSController@createSales');
@@ -25,7 +23,7 @@ Route::prefix('pos')->group(function(){
     
     Route::post('/test', 'POSController@test');
 
-    Route::get('/transaksi', 'ReportingController@index');
-
+    //Dummy invoice, to create the template of the invoice and certificate
+    Route::get('/invoice-dummy', 'POSController@showInvoiceDummy');
 
 });
