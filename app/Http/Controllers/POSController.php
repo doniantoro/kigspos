@@ -117,6 +117,28 @@ class POSController extends Controller
         return $req->get('param');
     }
 
+    
+     /*
+        Method to show invoice and certificate
+
+        Route   : /pos/transaction/{transaction_id}
+        Method  : GET
+    */
+    function showTransaction(Request $req){
+        $transaction = Transaction::where('id', $req->get('transaction_id'))->with('sales', 'sales.goods')->first();
+        return view('pos.showTransactionSuccess', ['transaction' => $transaction]);
+    }
+
+
+    function showInvoicePDF($transaction_id, Request $req){
+        $transaction = Transaction::where('id', $transaction_id)->with('sales', 'sales.goods')->first();
+
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadView('pos.pdf.invoice', ['transaction' => $transaction]);
+
+        return $pdf->stream();
+    }
+
     /*
         Method to show invoice and certificate
 
@@ -128,6 +150,8 @@ class POSController extends Controller
         $transaction = Transaction::find($req->get('transaction_id'));
         return json_encode($transaction);
     }
+
+
 
     function showInvoiceDummy()
     {

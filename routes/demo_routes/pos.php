@@ -19,7 +19,11 @@ Route::prefix('pos')->group(function(){
     Route::post('/create-transaction', 'POSController@createTransacation');
     Route::post('/create-sales', 'POSController@createSales');
 
-    Route::post('/invoice', 'POSController@showInvoice');
+    Route::get('/invoice', 'POSController@showTransaction');
+
+    Route::get('/pdf/invoice/{transaction_id}', 'POSController@showInvoicePDF');
+
+    //Route::post('/invoice', 'POSController@showInvoice');
     
     Route::post('/test', 'POSController@test');
 

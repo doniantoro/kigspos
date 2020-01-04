@@ -17,7 +17,7 @@ Route::get('/', function () {
 //    return view('dashboard/index');
 });
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group([], function () {
 
 //Create the route with the feature name
 //Include the route here
