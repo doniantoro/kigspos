@@ -5,18 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\GoodsFlow;
-use App\Goods;      
+use App\Goods;    
+
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\goodImport;
 use App\Imports\goods_flowsImport;
 use App\Http\Controllers\Controller;
+use App\Exports\GoodsExport;
 
 use Maatwebsite\Excel\HeadingRowImport;
 
 
-class InventoryController extends Controller
+class InventoryController extends Controller 
 {
+
+
+
 
 	  /*
        Inventory Controller index page to show goods in.
@@ -42,6 +47,11 @@ class InventoryController extends Controller
         Method  : GET
 
     */
+    public function certifikat(){
+		
+		
+		return view('products.sertifikat');
+	}
     
 	public function manual_input()
 	{
@@ -67,6 +77,7 @@ class InventoryController extends Controller
 		$input = $request->all();//request all of data input
 		$sku= Goods::get();
 		$succes="";
+		$failed=array();
 		$int=1;
 		//get how many data and looping
 		for ($i=0; $i < count($input['sku']); ++$i) 
@@ -76,11 +87,9 @@ class InventoryController extends Controller
 			{
 				if($sku2->sku==$input['sku'][$i])//kondision if sku avaible on db with user input,		
 				{
-					$same=false;
-					$succes = array($input['sku'][$i]);
-					 
-					//$count = count($succes2);
-					$int++;
+				 	$same=false;
+					$failed[$int]=$input['sku'][$i];	 
+				 	$int++;
 				}
 			}
 			if ($same==true)//kondision if sku is not avaible
@@ -110,8 +119,8 @@ class InventoryController extends Controller
 			}
 		 }
 		// alihkan halaman ke halaman input
-	    return redirect('/produk/manual_input')->with(['success' => $succes]);
-		// return json_encode($succes2);
+	    return redirect('/produk/manual_input')->with(['success' => $succes,'failed'=>$failed]);
+		// return json_encode($failed);
 	}
 
 
@@ -136,6 +145,8 @@ class InventoryController extends Controller
 		return redirect('/produk/');
 	}
 
+	 
+
 	 /*
        Inventory Controller flow flow_barang page to show flow goods when goods in,out,and return.
 
@@ -147,6 +158,7 @@ class InventoryController extends Controller
 
 	public function flow_barang(Request $request)
 	{
+	
 		$goods = GoodsFlow::with('goods', 'goods.goodscategory','goods.goodssubcategory','goods_status')
 							->orderby('id','desc')
 							->whereBetween('created_at', [$request->from, $request->to])    
@@ -155,6 +167,18 @@ class InventoryController extends Controller
 		return view('/products/flow_barang',['goods' => $goods]);
  	}
 
+	 /*
+       Inventory Controller ExportExcell  to export from flow data.
+
+        Route   : /pos/inventory
+        Method  : Get
+
+    */
+	public function ExportExcell()
+	{	
+			return Excel::download(new GoodsExport , 'goods.xlsx');
+
+	}
 
 	 /*
        Inventory Controller flow goods_stock page to show goods avaible.
@@ -256,7 +280,7 @@ class InventoryController extends Controller
 	public function return_stock($id,Request $request)
 	{
 
-		DB::table('GoodsFlow')->insert
+		DB::table('goods_flow')->insert
 			([
 				'status_id' => 3,
 				'goods_id' => $id,

@@ -26,12 +26,18 @@
                               <center>  <h3 style="font-size:40px;">Flow barang</h3></center>
                                 <div class="row">
                                    <!-- Filter produk -->
-                                    <form action="/produk/flow_barang" method="get">
-                                        <input type="date" name="from" class="ml-2 mb-2">-
-                                        <input type="date" name="to">
-                                        <button type="submit">submit</button>
-                                    </form>
+                                   <div class="col">
+                                        <form action="/produk/flow_barang" method="get">
+                                            <input type="date" name="from" class="ml-2 mb-2">-
+                                            <input type="date" name="to">
+                                            <button type="submit">submit</button>
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                         <a href="{{url('produk/flow_barang/export')}}"class="btn btn-info btn-min-width mr-1 mb-1" style="float:right;">Export Excell</a>
+                                    </div>
                                 </div>
+                                
                                 <!-- Table to show data -->
                                 <table class="table table-striped table-bordered multi-ordering">
                                     <thead>

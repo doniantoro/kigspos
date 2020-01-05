@@ -22,13 +22,27 @@
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
-                            @if ($message = Session::get('success'))
+                            
+                            
+                            
+                            @if ($message = Session::get('failed'))
                             @foreach($message as $messager)
                             <div class="alert alert-success alert-block">
                                 <button type="button" class="close" data-dismiss="alert">×</button> 
-                                <strong>Data dengan Sku {{ $messager }} Sudah ada,sehingga tidak dapat di input</strong>
+                                <strong>Data dengan Sku {{ $message }} Sudah ada,sehingga tidak dapat di input</strong>
                             </div>
                             @endforeach
+
+
+
+
+
+                            @endif
+                            @if ($message = Session::get('succes'))
+                            <div class="alert alert-success alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button> 
+                                <strong> {{ $message }} </strong>
+                            </div>
                             @endif
                                 <center><h1>Input Produk</h1></center></br>
                                 <form action="/produk/manual_input_proses" method="get">
@@ -130,63 +144,63 @@
             
             html += '<br><br><hr size="30">';
          
-            html += '<div id="form_add">';      
-            html += '<div class="form-row">';
-            html += '    <div class="form-group col-md-5">';
-            html += '         <label for="name">Name</label>';
-            html += '         <input name="name[]" class="form-control" id="name">';
-            html += '     </div>';
-            html += '     <div class="form-group col-md-4">';
-            html += '          <label for="sku">Sku</label>';
-            html += '          <input name="sku[]" class="form-control" id="sku">';
-            html += '     </div>';
-            html += '</div>';               
-            html += '<div class="form-row">';
-            html += '     <div class="form-group col-md-3">';
-            html += '          <label for="kategory">Kategory</label>';
-            html += '          <select name="category_id[]" id="kategory" class="form-control">';
-            html += '                  <option value=""selected>pilih</option>';
-            html += '                  @foreach($category as $categories)';
-            html += '                  <option value="{{$categories->id}}">{{$categories->name}}</option>';
-            html += '                  @endforeach';
-            html += '          </select>';
-            html += '     </div>';
-            html += '     <div class="form-group col-md-3">';
-            html += '          <label for="permata">Permata</label>';
-            html += '          <select name="subcategory_id[]" id="permata" class="form-control">';
-            html += '                  <option value=""selected>pilih</option>';
-            html += '                   @foreach($sub_category as $sub_categories)';
-            html += '                   <option value="{{$sub_categories->id}}">{{$sub_categories->name}}</option>';
-            html += '                   @endforeach'; 
-            html += '          </select>';
-            html += '     </div>';
-            html += '     <div class="form-group col-md-3">';
-            html += '          <label for="supplier">Supplier</label>';
-            html += '          <select name="supplier[]" id="supplier" class="form-control">';
-            html += '                  <option value=""selected>pilih</option>';
-            html += '                   @foreach($supplier as $suppliers)';
-            html += '                   <option value="{{$suppliers->id}}">{{$suppliers->name}}</option>';
-            html += '                   @endforeach';                    
-            html += '          </select>';
-            html += '     </div>';          
-            html += '</div>';
-            html += '<div class="form-row">';
-            html += '     <div class="form-group col-md-3">';
-            html += '          <label for="berat">Berat</label>';
-            html += '          <input name="weight[]" class="form-control" id="berat">';
-            html += '     </div>';
-            html += '     <div class="form-group col-md-3">';
-            html += '          <label for="karat">Karat</label>';
-            html += '          <input name="karat[]" class="form-control" id="karat">';
-            html += '     </div>';
-            html += '     <div class="form-group col-md-3">';
-            html += '          <label for="harga">Harga</label>';
-            html += '          <input name="price[]" class="form-control" id="harga">';
-            html += '     </div>';
-            html += '</div>';
-            html += '<button type="button" style="float:right;"class="btn btn-danger" onclick="del_form(this)">Hapus</button>';                                
-            html += '<button type="button" style="float:right;"onclick="add_form()" class="btn btn-success">Tambah</button>';
-            html += '</div>';
+            html += `<div id="form_add">      
+                    <div class="form-row">
+                <div class="form-group col-md-5">
+                     <label for="name">Name</label>
+                     <input name="name[]" class="form-control" id="name">
+                 </div>
+                 <div class="form-group col-md-4">
+                      <label for="sku">Sku</label>
+                      <input name="sku[]" class="form-control" id="sku">
+                 </div>
+            </div>            
+            <div class="form-row">
+                 <div class="form-group col-md-3">
+                      <label for="kategory">Kategory</label>
+                      <select name="category_id[]" id="kategory" class="form-control">
+                              <option value=""selected>pilih</option>
+                              @foreach($category as $categories)
+                              <option value="{{$categories->id}}">{{$categories->name}}</option>
+                              @endforeach
+                      </select>
+                 </div>
+                 <div class="form-group col-md-3">
+                      <label for="permata">Permata</label>
+                      <select name="subcategory_id[]" id="permata" class="form-control">
+                              <option value=""selected>pilih</option>
+                               @foreach($sub_category as $sub_categories)
+                               <option value="{{$sub_categories->id}}">{{$sub_categories->name}}</option>
+                               @endforeach
+                      </select>
+                 </div>
+                 <div class="form-group col-md-3">
+                      <label for="supplier">Supplier</label>
+                      <select name="supplier[]" id="supplier" class="form-control">
+                              <option value=""selected>pilih</option>
+                               @foreach($supplier as $suppliers)
+                               <option value="{{$suppliers->id}}">{{$suppliers->name}}</option>
+                               @endforeach
+                      </select>
+                 </div>    
+            </div>
+            <div class="form-row">
+                 <div class="form-group col-md-3">
+                      <label for="berat">Berat</label>
+                      <input name="weight[]" onkeypress="return hanyaAngka(event)" class="form-control" id="berat">
+                 </div>
+                 <div class="form-group col-md-3">
+                      <label for="karat">Karat</label>
+                      <input name="karat[]" onkeypress="return hanyaAngka(event)" class="form-control" id="karat">
+                 </div>
+                 <div class="form-group col-md-3">
+                      <label for="harga">Harga</label>
+                      <input name="price[]" onkeypress="return hanyaAngka(event)" class="form-control" id="harga">
+                 </div>
+            </div>
+            <button type="button" style="float:right;"class="btn btn-danger" onclick="del_form(this)">Hapus</button>                              
+            <button type="button" style="float:right;"onclick="add_form()" class="btn btn-success">Tambah</button>
+            </div>`;
      
              $('#form-body').append(html);
         }

@@ -24,3 +24,7 @@ Route::get('/produk/update_stock_proses/{sku}', 'InventoryController@update_stoc
 
 //flow barang
 Route::get('produk/flow_barang', 'InventoryController@flow_barang');
+Route::get('produk/flow_barang/export','InventoryController@ExportExcell');
+
+//flow barang
+Route::get('produk/certifikat', 'InventoryController@certifikat');
