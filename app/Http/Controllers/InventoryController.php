@@ -88,8 +88,10 @@ class InventoryController extends Controller
 				if($sku2->sku==$input['sku'][$i])//kondision if sku avaible on db with user input,		
 				{
 				 	$same=false;
-					$failed[$int]=$input['sku'][$i];	 
-				 	$int++;
+				//	$failed[$int]=$input['sku'][$i];	 
+					$failed=$input['sku'][$i];	 
+				
+				$int++;
 				}
 			}
 			if ($same==true)//kondision if sku is not avaible
@@ -163,8 +165,10 @@ class InventoryController extends Controller
 							->orderby('id','desc')
 							->whereBetween('created_at', [$request->from, $request->to])    
 							->get();
+		$dateFrom=$request->from;
+		$dateTo=$request->to;
 
-		return view('/products/flow_barang',['goods' => $goods]);
+		return view('/products/flow_barang',['goods' => $goods,'from'=>$request->from,'to'=>$request->to]);
  	}
 
 	 /*
@@ -174,10 +178,10 @@ class InventoryController extends Controller
         Method  : Get
 
     */
-	public function ExportExcell()
-	{	
-			return Excel::download(new GoodsExport , 'goods.xlsx');
-
+	public function ExportExcell(Request $request)
+	{
+			return Excel::download(new GoodsExport($request->from, $request->to ) , 'goods.xlsx');
+	//dd(new GoodsExport);
 	}
 
 	 /*

@@ -34,7 +34,7 @@
                                         </form>
                                     </div>
                                     <div class="col">
-                                         <a href="{{url('produk/flow_barang/export')}}"class="btn btn-info btn-min-width mr-1 mb-1" style="float:right;">Export Excell</a>
+                                         <a href="{{url('produk/flow_barang/export?')}}{{'from='.$from.'&to='.$to}}"class="btn btn-info btn-min-width mr-1 mb-1" style="float:right;">Export Excell</a>
                                     </div>
                                 </div>
                                 

@@ -26,15 +26,15 @@
                             
                             
                             @if ($message = Session::get('failed'))
-                            @foreach($message as $messager)
                             <div class="alert alert-success alert-block">
                                 <button type="button" class="close" data-dismiss="alert">×</button> 
                                 <strong>Data dengan Sku {{ $message }} Sudah ada,sehingga tidak dapat di input</strong>
                             </div>
-                            @endforeach
+                            
+                                <p id="demo">.</p>
 
-
-
+                                    <script>    document.getElementById("demo").innerHTML = alert("I am an alert box!");
+                                </script>
 
 
                             @endif
@@ -125,7 +125,6 @@
             </div>
         </section>
         </div>
-
         <!-- Function to add coloum input -->
         <script type="text/javascript">
         //function to only type angka
@@ -136,6 +135,8 @@
                  return false;
                   return true;
         }
+
+        
 
         //function to add form
         function add_form()
