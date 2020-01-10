@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\GoodsFlow;
 use App\Goods;    
-
+use App\Http\Controllers\Session;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\goodImport;
@@ -59,6 +59,7 @@ class InventoryController extends Controller
 		$sub_category=\App\GoodsSubcategory::get();
 		$supplier=\App\Supplier::get();
 		
+		
 		return view('products.manual_input',['category' => $category,'sub_category' => $sub_category,'supplier' => $supplier]);
 	}
 	
@@ -76,9 +77,9 @@ class InventoryController extends Controller
 	{
 		$input = $request->all();//request all of data input
 		$sku= Goods::get();
-		$succes="";
-		$failed=array();
-		$int=1;
+		$failed=collect();
+		$param="";
+		$int=0;
 		//get how many data and looping
 		for ($i=0; $i < count($input['sku']); ++$i) 
 		{
@@ -88,8 +89,8 @@ class InventoryController extends Controller
 				if($sku2->sku==$input['sku'][$i])//kondision if sku avaible on db with user input,		
 				{
 				 	$same=false;
-				//	$failed[$int]=$input['sku'][$i];	 
-					$failed=$input['sku'][$i];	 
+					$failed[$int]=$input['sku'][$i];	 
+					$param=1;
 				
 				$int++;
 				}
@@ -116,14 +117,17 @@ class InventoryController extends Controller
 					$GoodsFlow->status_id =1 ;
 					$GoodsFlow->goods_id = $last_id;
 					$GoodsFlow->save();  
-					$succes="Barang berhasil di input";
-			
 			}
 		 }
-		// alihkan halaman ke halaman input
-	    return redirect('/produk/manual_input')->with(['success' => $succes,'failed'=>$failed]);
-		// return json_encode($failed);
-	}
+
+		 if($param == 1){
+			session()->flash('failed', 'Maaf produk dengan sku '.$failed .' Tidak dapat diinput,karena nomor sku tersebut sudah ada di database');		// alihkan halaman ke halaman input
+		 }
+		else{
+		 session()->flash('succes','semua barang berhasil di input');
+		}
+		 return redirect('/produk/manual_input');
+		}
 
 
 	 /*

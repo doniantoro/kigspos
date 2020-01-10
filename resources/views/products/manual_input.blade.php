@@ -22,29 +22,19 @@
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
-                            
-                            
-                            
-                            @if ($message = Session::get('failed'))
-                            <div class="alert alert-success alert-block">
-                                <button type="button" class="close" data-dismiss="alert">×</button> 
-                                <strong>Data dengan Sku {{ $message }} Sudah ada,sehingga tidak dapat di input</strong>
-                            </div>
-                            
-                                <p id="demo">.</p>
-
-                                    <script>    document.getElementById("demo").innerHTML = alert("I am an alert box!");
-                                </script>
-
-
-                            @endif
-                            @if ($message = Session::get('succes'))
-                            <div class="alert alert-success alert-block">
-                                <button type="button" class="close" data-dismiss="alert">×</button> 
-                                <strong> {{ $message }} </strong>
-                            </div>
-                            @endif
-                                <center><h1>Input Produk</h1></center></br>
+                                @if ($message = Session::get('failed'))
+                                    <div class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">×</button> 
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                                @endif
+                                @if ($message = Session::get('succes'))
+                                    <div class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">×</button> 
+                                        <strong> {{ $message }} </strong>
+                                    </div>
+                                @endif
+                                    <center><h1>Input Produk</h1></center></br>
                                 <form action="/produk/manual_input_proses" method="get">
                                 {{ csrf_field() }}
                                 <div id="form-body">

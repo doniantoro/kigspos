@@ -14,7 +14,8 @@
                         <div class="card-header">
                             <a href="/produk/manual_input">
                             <button type="button" class="btn btn-info btn-min-width mr-1 mb-1"><i class="fa fa-plus-circle"></i> Tambah Produk</button></a>
-                            <button type="button" class="btn btn-info btn-min-width mr-1 mb-1" data-toggle="modal" data-target="#importExcel">IMPORT EXCEL</button>
+                            <button type="button" class="btn btn-info btn-min-width mr-1 mb-1" data-toggle="modal" data-target="#importExcel">IMPORT EXCEL</button></a>
+                            <a href="../../../app-assets/proudct.xlsx"> <button type="button" class="btn btn-info btn-min-width mr-1 mb-1">Download template excell</button></a>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
