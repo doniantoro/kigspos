@@ -121,10 +121,10 @@ class InventoryController extends Controller
 		 }
 
 		 if($param == 1){
-			session()->flash('failed', 'Maaf produk dengan sku '.$failed .' Tidak dapat diinput,karena nomor sku tersebut sudah ada di database');		// alihkan halaman ke halaman input
+			session()->flash('alert', 'Maaf produk dengan sku '.$failed .' Tidak dapat diinput,karena nomor sku tersebut sudah ada di database');		// alihkan halaman ke halaman input
 		 }
 		else{
-		 session()->flash('succes','semua barang berhasil di input');
+		 session()->flash('alert','semua barang berhasil di input');
 		}
 		 return redirect('/produk/manual_input');
 		}

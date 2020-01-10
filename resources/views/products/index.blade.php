@@ -6,10 +6,17 @@
 
 @section('content')
 <body class="vertical-layout vertical-content-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-content-menu" data-col="2-columns">
+<div class="card-body card-dashboard">
     <div class="content-body">
             <section id="multi-column">
             <div class="row">
                 <div class="col-12">
+                    @if ($message = Session::get('alert'))
+                        <div class="alert alert-success alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button> 
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @endif
                     <div class="card">
                         <div class="card-header">
                             <a href="/produk/manual_input">
