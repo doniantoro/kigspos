@@ -74,11 +74,7 @@
             <li class="nav-item nav-item {{Request::is('user') ? 'active' : ''}}"><a href="#"><i class="fa fa-user"></i><span class="menu-title" data-i18n="nav.dash.main">User Management</a>
                 <ul class="menu-content">
                         <li>
-                            <a class="menu-item" href="#" data-i18n="nav.templates.vert.main">Add User</a>
-                        </li>
-                
-                        <li>
-                            <a class="menu-item" href="#" data-i18n="nav.templates.vert.main">User List</a>
+                            <a class="menu-item" href="{{url('user')}}" data-i18n="nav.templates.vert.main">Add User</a>
                         </li>
                 </ul>
             </li>

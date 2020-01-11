@@ -21,8 +21,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 //Create the route with the feature name
 //Include the route here
+
     include('demo_routes/pos.php');
     include('demo_routes/category.php');
+    include('demo_routes/user.php');
 
     Route::get('/produk/manual_input', 'InventoryController@manual_input');
     Route::get('/produk/manual_input_proses', 'InventoryController@manual_input_proses');
@@ -36,10 +38,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('produk/return_stock/{sku}', 'InventoryController@return_stock');
     Route::get('/produk/update_stock_proses/{sku}', 'InventoryController@update_stock_proses');
 
-
-
-//flow barang
-Route::get('produk/flow_barang', 'InventoryController@flow_barang');
+    //flow barang
+    Route::get('produk/flow_barang', 'InventoryController@flow_barang');
+    
 });
 
 Route::get('logout', 'Auth\LoginController@logout', function () {
