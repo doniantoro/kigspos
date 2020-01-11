@@ -144,6 +144,7 @@ class InventoryController extends Controller
 		// get file excel
 		$file = $request->file('file');
  
+		
 		// import data from goodImport
 		Excel::import(new goodImport,$file);
 	

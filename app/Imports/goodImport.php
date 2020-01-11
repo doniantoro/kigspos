@@ -6,49 +6,47 @@ use App\Goods;
 use App\GoodsFlow;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use PhpOffice\PhpSpreadsheet\IOFactory; 
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 
-class goodImport implements ToModel,WithHeadingRow
+
+class goodImport implements ToCollection,WithHeadingRow
 {
         
-    //private $sku= Goods::select('sku')->get();
-	
+  	
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-
-    public function __construct(){
-
-    	$failed=collect();
-    
-    }
 	
 
-    public function model(array $row )
+    public function collection(Collection $rows )
     { 
-	$failed=collect();
-        
+            $failed=collect();    
         $sku= Goods::select('sku')->get();
         $same=true;
         $i="";
         $int=0;
     
-        foreach($sku as $sku2)
+        foreach ($rows as $row) 
         {
-            if($sku2->sku == $row['sku'])//kondision if sku avaible on db with user input,		
+            foreach($sku as $sku2)
             {
-                $same=false;       
-                $failed=$row['sku'];
+                if($sku2->sku == $row['sku'])//kondision if sku avaible on db with user input,		
+                {
+                    $same=false;       
+                    $failed[$int]=$row['sku'];
                     $int++;
-                session()->flash('alert', 'Maaf produk dengan sku '.$row['sku'] .'Tidak dapat diinput,karena nomor sku tersebut sudah ada di database');
-            
+                    $param=1;
+                }
             }
-        }
-        if ($same==true)//kondision if sku is not avaible
-		{
-    //Input to Goods
-                $products=new Goods;   
+            if ($same==true)//kondision if sku is not avaible
+			{
+			
+    
+            $products=new Goods;   
                 $products->sku = $row['sku'];
                 $products->name = $row['name'];
                 $products->category_id = $row['category_id'];
@@ -59,18 +57,14 @@ class goodImport implements ToModel,WithHeadingRow
                 $products->current_status =1;
                 $products->supplier_id = $row['supplier_id'];
                 $products->save();  
-                
-                //Input to GoodsFlow
-                $last_id = $products->id;
-                $products= new GoodsFlow(); 
-                    $products->status_id =1 ;
-                    $products->goods_id = $last_id;
-                    $products->save();
-                    session()->flash('alert', 'Semua data berhasil di input');
-    
+  
         }
-        
-        //dd($failed);
-      
+    }
+    if($param == 1){
+        session()->flash('alert', 'Maaf produk dengan sku '.$failed .' Tidak dapat diinput,karena nomor sku tersebut sudah ada di database');		// alihkan halaman ke halaman input
+     }
+    else{
+     session()->flash('alert','semua barang berhasil di input');
+    }
     }
 }
