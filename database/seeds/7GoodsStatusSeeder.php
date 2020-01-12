@@ -18,5 +18,8 @@ class GoodsStatusSeeder extends Seeder
         DB::table('goods_status')->insert([
             'status' => 'out',
         ]);
+        DB::table('goods_status')->insert([
+            'status' => 'sold',
+        ]);
     }
 }

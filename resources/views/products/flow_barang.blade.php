@@ -12,7 +12,6 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <!-- <button type="button" class="btn btn-info btn-min-width mr-1 mb-1"><i class="fa fa-plus-circle"></i> Tambah Produk</button> -->
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -26,12 +25,14 @@
                             <div class="card-body card-dashboard">
                               <center>  <h3 style="font-size:40px;">Flow barang</h3></center>
                                 <div class="row">
+                                   <!-- Filter produk -->
                                     <form action="/produk/flow_barang" method="get">
                                         <input type="date" name="from" class="ml-2 mb-2">-
                                         <input type="date" name="to">
                                         <button type="submit">submit</button>
                                     </form>
                                 </div>
+                                <!-- Table to show data -->
                                 <table class="table table-striped table-bordered multi-ordering">
                                     <thead>
                                         <tr>
@@ -43,6 +44,7 @@
                                             <th>Berat</th>
                                             <th>Kadar</th>
                                             <th>Harga</th>
+                                            <th>Supplier</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -51,17 +53,16 @@
                                         @foreach($goods as $good)
                                         <tr>
                                             <th scope="row"><?php echo $i ?></th>
-                                            <td>{{$good->sku}}</td>
+                                            <td>{{$good->goods->sku}}</td>
                                             <td>{{$good->goods['name']}}</td>
                                             <td>{{$good->goods['goodscategory']['name']}}</td>
                                             <td>{{$good->goods['goodssubcategory']['name']}}</td>
                                             <td>{{$good->goods['weight']}}</td>
                                             <td>{{$good->goods['karat']}}</td>
-                                            <td>{{$good->goods['price']}}</td>
-                                            <td>{{$good->goods['goodsstatus']['status']}}</td>
-                                            
-                                                     
-                                            </tr>
+                                            <td>{{number_format($good->goods['price'],0, ',' , '.')}}</td> 
+                                            <td>{{$good->goods['supplier']->name}}</td>
+                                            <td>{{$good->goods_status->status}}</td>
+                                         </tr>
                                         <?php $i=$i+1;?>
                                         @endforeach 
                                         </tbody>

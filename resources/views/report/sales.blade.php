@@ -33,6 +33,7 @@
                                             <th>SKU</th>
                                             <th>Nama</th>
                                             <th>Kategori</th>
+                                            <th>Sub Kategori</th>
                                             <th>Berat</th>
                                             <th>Karat</th>
                                             <th>Harga</th>
@@ -46,6 +47,7 @@
                                                 <td>{{$sales->goods['sku']}}</td>
                                                 <td>{{$sales->goods['name']}}</td>
                                                 <td>{{$sales->goods->goodscategory['name']}}</td>
+                                                <td>{{$sales->goods->goodssubcategory['name']}}</td>
                                                 <td>{{$sales->goods['weight']}}</td>
                                                 <td>{{$sales->goods['karat']}}</td>
                                                 <td>{{$sales->goods['price']}}</td>

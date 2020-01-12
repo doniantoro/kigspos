@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Goods;
 use App\Transaction;
 use App\Sales;
+use App\GoodsFlow;
 
 class POSController extends Controller
 {
@@ -23,17 +24,19 @@ class POSController extends Controller
         Method  : GET
 
     */
-    function getIndex(){
+    function getIndex()
+    {
         echo "THIS IS INDEX";
     }
 
 
-    function successfulTransactionPage(){
+    function successfulTransactionPage()
+    {
         echo "THIS IS PAGE";
     }
 
 
-     /*
+    /*
         Retrieve all product in db
 
         Route   : /pos/product
@@ -41,14 +44,15 @@ class POSController extends Controller
 
 
     */
-    function getProducts(){
+    function getProducts()
+    {
         $goods = Goods::all();
 
         return json_encode($goods);
     }
 
 
-     /*
+    /*
         Point of Sale index page.
 
         Route   : /pos/search
@@ -57,12 +61,13 @@ class POSController extends Controller
         Method  : GET
 
     */
-    function searchProduct(Request $req){
+    function searchProduct(Request $req)
+    {
         $sku = $req->get('sku');
         $id  = $req->get('id');
 
-        if($sku != null){
-            $product = Goods::where('sku', $sku)->with('GoodsCategory', 'GoodsSubCategory')->first();
+        if ($sku != null) {
+            $product = Goods::where('sku', $sku)->where('current_status', 1)->with('GoodsCategory', 'GoodsSubCategory')->first();
             return $product;
         }
     }
@@ -78,10 +83,11 @@ class POSController extends Controller
         Method  : POST
 
     */
-    function createTransacation(Request $req){
+    function createTransacation(Request $req)
+    {
         $transaction = new Transaction();
         $transaction->price_total = $req->get('price_total');
-        $transaction->user_id = $req->get('user_id');
+        $transaction->user_id = 1; //Still hardcoded
         $transaction->customer_name = $req->get('customer_name');
         $transaction->save();
         return json_encode($transaction);
@@ -98,20 +104,72 @@ class POSController extends Controller
         Method  : POST
 
     */
-    function createSales(Request $req){
+    function createSales(Request $req)
+    {
+
+        $goods = Goods::find($req->get('goods_id'));
+        $goods->current_status = 3; //Status for Sold
+        $goods->save();
+
+        $goodsFlow = new GoodsFlow();
+        $goodsFlow->status_id = 3; //Status fold Sold;
+        $goodsFlow->goods_id = $goods->id;
+        $goodsFlow->save();
+
         $sales = new Sales();
         $sales->transaction_id = $req->get('transaction_id');
-        $sales->goods_id = $req->get('goods_id');
+        $sales->goods_id = $goods->id;
         $sales->save();
+
         return json_encode($sales);
     }
 
-    function test(Request $req){
+    function test(Request $req)
+    {
         return $req->get('param');
     }
 
-    function showInvoice(Request $req){
+    
+     /*
+        Method to show invoice and certificate
+
+        Route   : /pos/transaction/{transaction_id}
+        Method  : GET
+    */
+    function showTransaction(Request $req){
+        $transaction = Transaction::where('id', $req->get('transaction_id'))->with('sales', 'sales.goods')->first();
+        return view('pos.showTransactionSuccess', ['transaction' => $transaction]);
+    }
+
+
+    function showInvoicePDF($transaction_id, Request $req){
+        $transaction = Transaction::where('id', $transaction_id)->with('sales', 'sales.goods')->first();
+
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadView('pos.pdf.invoice', ['transaction' => $transaction]);
+
+        return $pdf->stream();
+    }
+
+    /*
+        Method to show invoice and certificate
+
+        Route   :
+        Method  : POST
+    */
+    function showInvoice(Request $req)
+    {
         $transaction = Transaction::find($req->get('transaction_id'));
-        return json_encode($transaction);        
+        return json_encode($transaction);
+    }
+
+
+
+    function showInvoiceDummy()
+    {
+        $data['invoice_number'] = "1003111";
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadView('pdf_template.invoice', $data);
+        return $pdf->stream();
     }
 }

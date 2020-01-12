@@ -12,4 +12,8 @@ class GoodsFlow extends Model
     public function goods(){
         return $this->belongsTo('App\Goods');
     }
+
+    public function goods_status(){
+        return $this->hasOne('App\GoodsStatus','id', 'status_id');
+    }
 }

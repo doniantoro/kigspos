@@ -12,7 +12,6 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <!-- <button type="button" class="btn btn-info btn-min-width mr-1 mb-1"><i class="fa fa-plus-circle"></i> Tambah Produk</button> -->
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -50,8 +49,9 @@
                                             <td>{{$good->goodssubcategory->name}}</td>
                                             <td>{{$good->weight}}</td>
                                            <td>{{$good->karat}}</td>
-                                            <td>{{$good->price}}</td>  
+                                           <td>{{number_format($good->price,0, ',' , '.')}}</td> 
                                             <td>
+                                                <!-- Button if user wanna do update,delete and return goods -->
                                                 <div class="dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         konidisi
@@ -76,16 +76,24 @@
         </section>
         <!--/ Multi-column ordering table -->
         </div>
+
         <script language="JavaScript" type="text/javascript">
-      function hapusData(id){
-        if (confirm("Apakah anda yakin akan menghapus data ini?")){
-          window.location.href = '/produk/delete_stock/' + id;
-        }
-        function returnData(id){
-        if (confirm("Apakah anda yakin akan return data ini?")){
-          window.location.href = '/produk/return_stock/' + id;
-        }
-      }
+            //function if user wanna delete data
+            function hapusData(id)
+            {
+                if (confirm("Apakah anda yakin akan menghapus data ini?"))
+                {
+                   window.location.href = '/produk/delete_stock/' + id;
+                }
+            }
+            //function if user wanna return data
+            function returnData(id)
+            {
+                if (confirm("Apakah anda yakin akan return data ini?"))
+                {
+                    window.location.href = '/produk/return_stock/' + id;
+                }
+            }
     </script>
 </body>
 @endsection

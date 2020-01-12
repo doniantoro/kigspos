@@ -26,6 +26,8 @@
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
                                 <h3>Manajemen Produk</h3>
+                               
+                               <!-- Show data goods which is in -->
                                 <table class="table table-striped table-bordered multi-ordering">
                                     <thead>
                                         <tr>
@@ -37,6 +39,7 @@
                                             <th>Berat</th>
                                             <th>Kadar</th>
                                             <th>Harga</th>
+                                            <th>Supplier</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -45,14 +48,15 @@
                                         <tr>
                                         <th scope="row"><?php echo $i ?></th>                       
                                         <td>{{$good->sku}}</td>
-                                            <td>{{$good->name}}</td>
-                                            
+                                            <td>{{$good->name}}</td>              
                                             <td>{{$good->goodscategory->name}}</td>
                                             <td>{{$good->goodssubcategory->name}}</td>
                                             <td>{{$good->weight}}</td>
                                             <td>{{$good->karat}}</td>
-                                            <td>{{$good->price}}</td> 
-                                         </tr>
+                                            <td>{{number_format($good->price,0, ',' , '.')}}</td> 
+                                            <td>{{$good->supplier->name}}</td>
+                                         </tr><?php $i++;?>
+                                         
                                          @endforeach
                                     </tbody>
                                 </table>
@@ -62,7 +66,6 @@
                 </div>
             </div>
         </section>
-        <!--/ Multi-column ordering table -->
         </div>
 
 
