@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Goods extends Model
 {
     protected $table = 'goods';
-    protected $fillable = ['sku', 'name', 'weight', 'karat', 'price'];
-    public $timestamps ='false';
-    
+
+
     public function goodscategory(){
         return $this->belongsTo('App\GoodsCategory', 'category_id', 'id');
     }

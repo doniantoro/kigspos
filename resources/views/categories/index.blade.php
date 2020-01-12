@@ -40,8 +40,12 @@
                                     </div>
     
                                     <div class="form-group">
-                                        <label for="userinput6" class="sr-only">Jenis Permata</label>
-                                        <input class="form-control" placeholder="Jenis Permata" id="userinput6" name="type_gem" required>
+                                        {{-- {{dd($subCategories)}} --}}
+                                        <select class="select2 form-control">
+                                        @foreach ($subCategories as $subCategory)    
+                                            <option value="{{$subCategory->id}}">{{$subCategory->name}}</option>
+                                        @endforeach
+                                        </select>
                                     </div>
     
                                 </div>
@@ -64,12 +68,13 @@
 	<div class="col-md-6">
 		<div class="card">
 			<div class="card-header">
+                <h4 class="card-title">List Kategori</h4>
+                <br>
                 @if (session()->has('success'))
                     <div class="alert alert-danger">
                         {{session()->get('success')}}
                     </div>
                 @endif
-				<h4 class="card-title">List Kategori</h4>
 				<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
         		<div class="heading-elements">
 					<ul class="list-inline mb-0">
@@ -86,7 +91,6 @@
 							<tr>
 								<th>#</th>
 								<th>Kategori</th>
-                                <th>Jenis Permata</th>
                                 <th>Aksi</th>
 							</tr>
 						</thead>
@@ -96,7 +100,6 @@
                                 <tr>
                                     <th>{{$no++}}</th>
                                     <td>{{$category->name}}</td>
-                                    <td>{{$category->type_gem}}</td>
                                     <td>
                                             <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
                                                     @csrf
