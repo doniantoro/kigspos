@@ -19,6 +19,7 @@ Route::get('produk/update_stock/{sku}', 'InventoryController@update_stock');
 Route::get('produk/delete_stock/{sku}', 'InventoryController@delete_stock');
 Route::get('produk/return_stock/{sku}', 'InventoryController@return_stock');
 Route::get('/produk/update_stock_proses/{sku}', 'InventoryController@update_stock_proses');
+Route::get('produk/template_download', 'InventoryController@template_download');
 
 
 

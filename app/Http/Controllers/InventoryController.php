@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\GoodsFlow;
 use App\Goods;    
 use App\Http\Controllers\Session;
-
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\goodImport;
 use App\Imports\goods_flowsImport;
 use App\Http\Controllers\Controller;
 use App\Exports\GoodsExport;
-
 use Maatwebsite\Excel\HeadingRowImport;
+
 
 
 class InventoryController extends Controller 
 {
-
 
 
 
@@ -152,6 +152,19 @@ class InventoryController extends Controller
 		return redirect('/produk/');
 	}
 
+	  /*
+       Inventory Controller template_download page to Download template.
+
+        Route   : /pos/inventory
+        Method  : GET
+
+    */
+	public function template_download(){
+	
+		$file = public_path() . '/app-assets/product.xlsx' ;
+		$s="product.xlsx";
+		return response()->download($file,$s);
+	}
 	 
 
 	 /*
