@@ -144,7 +144,7 @@ class POSController extends Controller
 
     function showInvoicePDF($transaction_id, Request $req){
         $transaction = Transaction::where('id', $transaction_id)->with('sales', 'sales.goods')->first();
-
+        // return $transaction;
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadView('pos.pdf.invoice', ['transaction' => $transaction]);
 

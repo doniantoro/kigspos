@@ -15,7 +15,7 @@
                             <h6>Rincian Transaksi</h6>
                         </div>
                         <div class="col-md-3">
-                            <h2 style="text-align: right">Invoice #{{$transaction['id']}}</h2>
+                            <h2 style="text-align: right">Invoice #{{date('Ymd', strtotime($transaction->created_at))}}{{sprintf("%04d", $transaction->id)}}</h2>
                             <h5 style="text-align: right">{{$transaction->created_at->format('d-m-Y')}}</h5>
                         </div>
                     </div>

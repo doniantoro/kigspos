@@ -47,7 +47,7 @@
                 </td>
     
                 <td style="text-align: right;">
-                    <h2>Invoice #{{$transaction->id}}</h2>
+                    <h2>Invoice #{{date('Ymd', strtotime($transaction->created_at))}}{{sprintf("%04d", $transaction->id)}}</h2>
                     <h6 style="font-weight: 300">Printed date : {{\Carbon\Carbon::now()->format('d/m/yy h:m:s') }} </h6>
                 </td>
             </tr>

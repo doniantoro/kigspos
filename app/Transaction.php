@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    protected $table = 'transaction';
     protected $primaryKey = 'id';
+    public $table = "transaction";
 
     public function sales(){
         return $this->hasMany('App\Sales');
     }
 
     public function user(){
-        return $this->belongsToMany('App\user', 'user_id');
+        return $this->belongsToMany('App\User');
     }
 
 }

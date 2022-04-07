@@ -21,8 +21,8 @@ class UserSeeder extends Seeder
             'id' => 0,
             'name' => $faker->name,
             'user_level_id' => $faker->randomElement($user_level_id),
-            'username' => $faker->firstName,
-            'password' => $faker->password,
+            'username' => 'doniantoro',
+            'password' => Hash::make("doniantoro"),
         ]);
         for($i=0;$i<5;$i++){
             DB::table('user')->insert([

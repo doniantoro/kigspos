@@ -67,57 +67,33 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <p>Total paid invoices 240, unpaid 150. <span class="float-right"><a href="project-summary.html" target="_blank">Invoice Summary <i class="ft-arrow-right"></i></a></span></p>
+                            <!-- <p>Total paid invoices 240, unpaid 150. <span class="float-right"><a href="project-summary.html" target="_blank">Invoice Summary <i class="ft-arrow-right"></i></a></span></p> -->
                         </div>
                         <div class="table-responsive">
-                            <table id="recent-orders" class="table table-hover mb-0">
-                                <thead>
+                            <table id="myTable" class="table table-hover mb-0">
+                            
+                            <thead>
                                     <tr>
-                                        <th>SKU</th>
                                         <th>Invoice#</th>
                                         <th>Customer Name</th>
-                                        <th>Status</th>
+                                        <th>Sales</th>
                                         <th>Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($transactions as $transaction)
                                     <tr>
-                                        <td class="text-truncate">PO-10521</td>
-                                        <td class="text-truncate"><a href="#">INV-001001</a></td>
-                                        <td class="text-truncate">Elizabeth W.</td>
-                                        <td class="text-truncate"><span class="tag tag-default tag-success">Paid</span></td>
-                                        <td class="text-truncate">$ 1200.00</td>
+                                        <td class="text-truncate"><a href="pos/invoice/?transaction_id={{$transaction->id}}".>{{date('Ymd', strtotime($transaction->created_at))}}{{sprintf("%04d", $transaction->id)}}</a></td>
+                                        <td class="text-truncate">{{$transaction->customer_name}}</td>
+                                        <td class="text-truncate"><span class="tag tag-default tag-success">{{$transaction->name}}</span></td>
+                                        <td class="text-truncate">Rp.{{number_format($transaction->price_total,'0','.', '.')}}</td>
                                     </tr>
-                                    <tr>
-                                        <td class="text-truncate">PO-532521</td>
-                                        <td class="text-truncate"><a href="#">INV-01112</a></td>
-                                        <td class="text-truncate">Doris R.</td>
-                                        <td class="text-truncate"><span class="tag tag-default tag-warning">Overdue</span></td>
-                                        <td class="text-truncate">$ 5685.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-truncate">PO-05521</td>
-                                        <td class="text-truncate"><a href="#">INV-001012</a></td>
-                                        <td class="text-truncate">Andrew D.</td>
-                                        <td class="text-truncate"><span class="tag tag-default tag-success">Paid</span></td>
-                                        <td class="text-truncate">$ 152.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-truncate">PO-15521</td>
-                                        <td class="text-truncate"><a href="#">INV-001401</a></td>
-                                        <td class="text-truncate">Megan S.</td>
-                                        <td class="text-truncate"><span class="tag tag-default tag-success">Paid</span></td>
-                                        <td class="text-truncate">$ 1450.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-truncate">PO-32521</td>
-                                        <td class="text-truncate"><a href="#">INV-008101</a></td>
-                                        <td class="text-truncate">Walter R.</td>
-                                        <td class="text-truncate"><span class="tag tag-default tag-warning">Overdue</span></td>
-                                        <td class="text-truncate">$ 685.00</td>
-                                    </tr>
+                                    @endforeach
+                                    
                                 </tbody>
                             </table>
+                            <div class="float-right mb-2 mt-1">{{ $transactions->links() }}</div>
+	                        
                         </div>
                     </div>
                 </div>
@@ -128,7 +104,18 @@
                 </div>
               </div>
             </div>
+
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
     </body>
+
+    
     @slot('footer')
         
     @endslot
